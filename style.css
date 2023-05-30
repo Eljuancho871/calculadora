@@ -1,0 +1,41 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.content_number{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    width: 500px;
+    gap: 5px;
+}
+
+.form_numbers{
+    width: 100%;
+}
+
+input{
+    width: 100%;
+    cursor: pointer;
+}
+
+.show_numbers{
+    width: 495px;
+    color: white;
+    height: 20px;
+    background-color: gray;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-radius: 2px;
+    padding: 5px;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    height: 90vh;
+}
