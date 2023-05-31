@@ -21,7 +21,7 @@ input{
 }
 
 .show_numbers{
-    width: 495px;
+    width: 595px;
     color: white;
     height: 20px;
     background-color: gray;
@@ -38,4 +38,9 @@ body{
     width: 100%;
     align-items: center;
     height: 90vh;
+}
+
+.operaciones{
+    width: 100px;
+    margin: 0 5px 5px 5px;
 }
