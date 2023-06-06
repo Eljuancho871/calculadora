@@ -12,20 +12,15 @@ if (isset($_POST["borrar"])){
 if (isset($_POST["calculo"])){
 
     $caracteres = implode("", explode(" ", $_SESSION["caracteres"]));
-    recursive_operacion($caracteres);
+    split_one_operacion($caracteres);
 };
 
-global $d;
-$d = 0;
+function split_one_operacion(string $caracteres): void {
 
-function recursive_operacion(string $caracteres){
-
-    global $d;
     $array_caracteres = str_split($caracteres);
     $symbol_operacion = ["", 0];
     $nums_left = [];
     $nums_right = [];
-    $d += 1;
     
     foreach($array_caracteres as $key => $value){
 
@@ -47,20 +42,16 @@ function recursive_operacion(string $caracteres){
         }
     };
 
-    $_SESSION["caracteres"] = $caracteres;
-    echo $caracteres;
-    echo "<br/>";
-
     
-
-    if($d < 5) calculo_operacion($symbol_operacion[0], $nums_left, $nums_right, $caracteres);
+    $_SESSION["caracteres"] = $caracteres;
+    if(!(is_number($caracteres))) calculo_operacion($symbol_operacion[0], $nums_left, $nums_right, $caracteres);
 };
 
-function es_entero($cadena) {
-    return preg_match('/^[0-9]+$/', $cadena);
+function is_number(string $cadena): int {
+    return preg_match('/^[0-9]+(\.[0-9]+)?$/', $cadena);
 }
 
-function join_new_operacion($caracteres_old, $result_new){
+function join_new_operacion(string $caracteres_old,  string $result_new): void  {
 
     $caracteres_old_array = str_split($caracteres_old);
     $count_symbol = 0;
@@ -76,11 +67,11 @@ function join_new_operacion($caracteres_old, $result_new){
     array_unshift($new_operacion_array, $result_new);
     $result_final = implode("", $new_operacion_array);
 
-    recursive_operacion($result_final);
+    split_one_operacion($result_final);
 
 }
 
-function calculo_operacion($symbol_operacion, $nums_left, $nums_right, $old_caracteres){
+function calculo_operacion(string $symbol_operacion, array $nums_left, array $nums_right, string $old_caracteres): void {
 
     $result = 0;
     $nums_left = implode("", $nums_left);
@@ -103,14 +94,14 @@ function calculo_operacion($symbol_operacion, $nums_left, $nums_right, $old_cara
 
         case '/':
             
-            $result = intval($nums_left) / intval($nums_right);
+            $result = floatval($nums_left) / floatval($nums_right);
             break;
     }
 
     join_new_operacion($old_caracteres, $result);
 };
 
-//  $page = $_SERVER['HTTP_REFERER'];
-//  $sec = "0";
-//  header("Refresh: $sec; url=$page");
+$page = $_SERVER['HTTP_REFERER'];
+$sec = "0";
+header("Refresh: $sec; url=$page");
 ?>
