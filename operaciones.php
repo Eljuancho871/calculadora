@@ -12,7 +12,15 @@ if (isset($_POST["borrar"])){
 if (isset($_POST["calculo"])){
 
     $caracteres = implode("", explode(" ", $_SESSION["caracteres"]));
-    split_one_operacion($caracteres);
+
+    if(in_array("e", str_split($caracteres))){
+
+        $_SESSION["caracteres"] = "error";
+    }else{
+
+        split_one_operacion($caracteres);
+    }
+
 };
 
 function split_one_operacion(string $caracteres): void {
@@ -76,6 +84,12 @@ function calculo_operacion(string $symbol_operacion, array $nums_left, array $nu
     $result = 0;
     $nums_left = implode("", $nums_left);
     $nums_right = implode("", $nums_right);
+
+    if($old_caracteres == "error" || ($nums_right == "0" && $symbol_operacion == "/")) {
+
+        $_SESSION["caracteres"] = "error";
+        return;        
+    };
 
     switch ($symbol_operacion) {
         case '+':
