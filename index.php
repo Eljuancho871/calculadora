@@ -11,6 +11,7 @@
     <title>Calculadora</title>
 </head>
 <body>
+    <h2 style="margin-bottom: 30px;">Calculadora con 100% php </h2>
     <div class="show_numbers" >
         <?php  echo $_SESSION["caracteres"];  ?>
     </div>
@@ -29,15 +30,6 @@
         }
         
         ?>
-
-            <form class='' method='post' action='./show_caracteres.php' style="width: 100%;" >
-                <input name='caracter' type='submit' value='(' style="width: 100%;"/>
-            </form>
-            
-            <form class='' method='post' action='./show_caracteres.php' style="width: 100%;" >
-                <input name='caracter' type='submit' value=')' style="width: 100%;" />
-            </form>
-
             <form class='' method='post' action='./operaciones.php' style="width: 100%;" >
                 <input name='borrar' type='submit' value='BORRAR' style="width: 100%;" />
             </form>
@@ -62,10 +54,6 @@
 
             <form class='operaciones' method='post' action='./show_caracteres.php' >
                 <input name='caracter' type='submit' value='/' />
-            </form>
-
-            <form class='operaciones' method='post' action='./show_caracteres.php' >
-                <input name='caracter' type='submit' value='%' />
             </form>
         </div>
     </div>

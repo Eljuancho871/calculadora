@@ -18,17 +18,29 @@
 input{
     width: 100%;
     cursor: pointer;
+    font-size: 1.5rem;
+    background-color: rgba(63, 63, 201, 0.737);
+    border-radius: 5px;
+    padding: 10px;
+    color: white;
+    border: none;
+    transition: all 0.5s;
+}
+
+input:hover{
+    background-color: rgba(63, 63, 201, 0.905);
 }
 
 .show_numbers{
     width: 595px;
     color: white;
-    height: 20px;
+    height: 30px;
     background-color: gray;
     margin-top: 10px;
     margin-bottom: 10px;
     border-radius: 2px;
     padding: 5px;
+    font-size: 1.5rem;
 }
 
 body{
