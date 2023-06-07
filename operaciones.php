@@ -23,10 +23,15 @@ if (isset($_POST["calculo"])){
 
 };
 
+global $is_negative;
+$is_negative;
+
 function split_one_operacion(string $caracteres): void {
 
+    global $is_negative;
+    $is_negative = false;
     $array_caracteres = str_split($caracteres);
-    $symbol_operacion = ["", 0];
+    (str_split($caracteres)[0] == "-") ? $symbol_operacion = ["", -1] : $symbol_operacion = ["", 0];
     $nums_left = [];
     $nums_right = [];
     
@@ -35,6 +40,12 @@ function split_one_operacion(string $caracteres): void {
         if($symbol_operacion[1] === 0){
             
             if($value != "+" && $value != "-" && $value != "*" && $value != "/") array_push($nums_left, $value);
+        }
+
+        if($value === "-" && str_split($caracteres)[0] === "-" ){
+
+            array_push($nums_left, $value);
+            $is_negative = true;
         }
 
         if($symbol_operacion[1] === 1){
@@ -50,17 +61,19 @@ function split_one_operacion(string $caracteres): void {
         }
     };
 
-    
+
     $_SESSION["caracteres"] = $caracteres;
+    
     if(!(is_number($caracteres))) calculo_operacion($symbol_operacion[0], $nums_left, $nums_right, $caracteres);
 };
 
 function is_number(string $cadena): int {
-    return preg_match('/^[0-9]+(\.[0-9]+)?$/', $cadena);
+    return preg_match('/^-?[0-9]+(\.[0-9]+)?$/', $cadena);
 }
 
 function join_new_operacion(string $caracteres_old,  string $result_new): void  {
 
+    global $is_negative;
     $caracteres_old_array = str_split($caracteres_old);
     $count_symbol = 0;
     $new_operacion = "";
@@ -68,7 +81,13 @@ function join_new_operacion(string $caracteres_old,  string $result_new): void  
     foreach($caracteres_old_array as $key => $value){
 
         if($value == "+" || $value == "-" || $value == "*" || $value == "/") $count_symbol += 1;
-        if($count_symbol >= 2) $new_operacion = $new_operacion.$value;
+        if($is_negative == true){
+
+            if($count_symbol >= 3) $new_operacion = $new_operacion.$value;
+        }else{
+
+            if($count_symbol >= 2) $new_operacion = $new_operacion.$value;
+        }
     }
 
     $new_operacion_array = str_split($new_operacion);
