@@ -2,6 +2,9 @@
 
 session_start();
 
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 if (isset($_POST["borrar"])){
 
     $array_caracteres = explode(" ", $_SESSION["caracteres"]);
@@ -104,12 +107,6 @@ function calculo_operacion(string $symbol_operacion, array $nums_left, array $nu
     $nums_left = implode("", $nums_left);
     $nums_right = implode("", $nums_right);
 
-    if($old_caracteres == "error" || ($nums_right == "0" && $symbol_operacion == "/")) {
-
-        $_SESSION["caracteres"] = "error";
-        return;        
-    };
-
     switch ($symbol_operacion) {
         case '+':
             
@@ -127,7 +124,13 @@ function calculo_operacion(string $symbol_operacion, array $nums_left, array $nu
 
         case '/':
             
-            $result = floatval($nums_left) / floatval($nums_right);
+            try{
+                $result = floatval($nums_left) / floatval($nums_right);
+            }catch(DivisionByZeroError $err){
+
+                $_SESSION["caracteres"] = "error";
+                return;
+            }
             break;
     }
 
