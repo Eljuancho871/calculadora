@@ -1,3 +1,3 @@
-# Calculadora hecha con 100% php
+# Calculadora hecha con php
 
-## hace operaciones con la suma, divicion, resta y multiplicacion.
+## hace diversas operaciones con la suma, divicion, resta y multiplicacion.
